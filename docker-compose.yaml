@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  votify-postgres:
+    image: postgres:15.2-alpine
+    container_name: votify-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=votify
+    volumes:
+        - ./init.sql:/data/application/init.sql
+  votify-api:
+    container_name: votify-api
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/app
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=votify-postgres
+      - DB_PORT=5432
+      - DB_DATABASE=votify
+    depends_on:
+      - votify-postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@postgres.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    depends_on:
+      - votify-postgres
+    ports:
+      - "5050:80"
+    restart: unless-stopped
