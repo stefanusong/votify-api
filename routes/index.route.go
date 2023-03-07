@@ -9,4 +9,5 @@ func InitRoutes(rg *gin.RouterGroup, db *gorm.DB) {
 	SetAuthRoutes(rg, db)
 	SetUserRoutes(rg, db)
 	SetVoteRoutes(rg, db)
+	SetCategoryRoutes(rg, db)
 }

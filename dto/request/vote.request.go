@@ -9,7 +9,6 @@ type CreateVote struct {
 	Title      string           `json:"title" binding:"required,min=3"`
 	IsOpen     bool             `json:"is_open"`
 	IsPublic   bool             `json:"is_public"`
-	UseOTP     bool             `json:"use_otp"`
 	Questions  []CreateQuestion `json:"questions" binding:"required"`
 }
 
@@ -19,8 +18,6 @@ type CreateQuestion struct {
 }
 
 type CreateOption struct {
-	OptionColorID uuid.UUID `json:"option_color_id" binding:"required"`
-	Option        string    `json:"option" binding:"required,min=3"`
-	Desc          string    `json:"desc"`
-	Image         string    `json:"image"`
+	Option string `json:"option" binding:"required,min=3"`
+	Desc   string `json:"desc"`
 }

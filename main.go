@@ -19,7 +19,7 @@ func main() {
 
 	db := config.OpenDBConnection()
 
-	handleMigration(db, &models.User{}, &models.Category{}, &models.OptionColor{}, &models.Vote{},
+	handleMigration(db, &models.User{}, &models.Category{}, &models.Vote{},
 		&models.VoteOption{}, &models.VoteQuestion{}, &models.UserAnswer{})
 
 	routeGroup := r.Group("/api")
