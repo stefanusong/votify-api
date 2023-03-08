@@ -14,3 +14,12 @@ type UserAnswer struct {
 	VoteQuestion VoteQuestion `gorm:"foreignKey:QuestionID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	VoteOption   VoteOption   `gorm:"foreignKey:OptionID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
+
+func NewUserAnswer(VoteID, UserID, QuestionID, OptionID uuid.UUID) UserAnswer {
+	return UserAnswer{
+		VoteID:     VoteID,
+		UserID:     UserID,
+		QuestionID: QuestionID,
+		OptionID:   OptionID,
+	}
+}

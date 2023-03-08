@@ -12,6 +12,16 @@ type CreateVote struct {
 	Questions  []CreateQuestion `json:"questions" binding:"required"`
 }
 
+type UserAnswer struct {
+	VoteID  uuid.UUID
+	UserID  uuid.UUID
+	Answers []Answer
+}
+
+type Answer struct {
+	QuestionID uuid.UUID
+	OptionID   uuid.UUID
+}
 type CreateQuestion struct {
 	Question string         `json:"question" binding:"required,min=3"`
 	Options  []CreateOption `json:"options" binding:"required"`

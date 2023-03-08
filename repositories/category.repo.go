@@ -38,25 +38,23 @@ func (cr *categoryRepository) GetCategories() ([]models.Category, error) {
 func (cr *categoryRepository) GetCategoryByID(ID string) (*models.Category, error) {
 	var category *models.Category
 	res := cr.db.First(&category, "ID = ?", ID)
-	err := res.Error
 
 	if res.RowsAffected == 0 {
 		return nil, nil
 	}
 
-	return category, err
+	return category, res.Error
 }
 
 func (cr *categoryRepository) UpdateCategoryByID(ID string, Category models.Category) (uuid.UUID, error) {
 	res := cr.db.Model(&models.Category{}).Where("ID = ?", ID).Updates(Category)
-	err := res.Error
 
 	if res.RowsAffected == 0 {
 		return uuid.UUID{}, nil
 	}
 
 	categoryID, _ := uuid.FromString(ID)
-	return categoryID, err
+	return categoryID, res.Error
 }
 
 func (cr *categoryRepository) DeleteCategoryByID(ID string) error {

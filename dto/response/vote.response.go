@@ -32,3 +32,27 @@ func NewBaseVote(vote models.Vote) BaseVote {
 		IsPublic:   vote.IsPublic,
 	}
 }
+
+type BaseQuestion struct {
+	ID       uuid.UUID
+	Question string
+	Options  []BaseOption
+}
+
+type BaseOption struct {
+	ID     uuid.UUID
+	Option string
+	Desc   string
+}
+
+type UserAnswer struct {
+	VoteID    string
+	Questions []QuestionAnswer
+}
+
+type QuestionAnswer struct {
+	QuestionID string
+	Question   string
+	OptionID   string
+	Option     string
+}
