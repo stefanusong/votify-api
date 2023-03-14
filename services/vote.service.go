@@ -133,6 +133,15 @@ func (svc *voteService) GetVoteQuestions(voteId string) (any, error) {
 func (svc *voteService) AnswerVote(req request.UserAnswer) error {
 	var UserAnswers []models.UserAnswer
 
+	// Get vote
+	vote, err := svc.voteRepo.GetVoteByID(req.VoteID.String())
+	if err != nil {
+		return err
+	}
+	if !vote.IsOpen {
+		return errors.New("the vote is already closed")
+	}
+
 	// Get questions
 	questions, err := svc.voteRepo.GetVoteQuestions(req.VoteID.String())
 	if err != nil {
