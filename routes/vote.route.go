@@ -21,7 +21,7 @@ func SetVoteRoutes(router *gin.RouterGroup, db *gorm.DB) {
 	voteRoute.GET("/:id/questions", middleware.AuthMiddleware, voteHandler.GetVoteQuestions)
 
 	voteRoute.POST("/:id/answers", middleware.AuthMiddleware, voteHandler.AnswerVote)
-	voteRoute.GET("/:id/answers", middleware.AuthMiddleware, voteHandler.GetUserAnswers)
+	voteRoute.GET("/:id/answers/mine", middleware.AuthMiddleware, voteHandler.GetUserAnswers)
 
 	voteRoute.GET("/mine", middleware.AuthMiddleware, voteHandler.GetVoteByUserId)
 	voteRoute.GET("/public", middleware.AuthMiddleware, voteHandler.GetPublicVotes)
